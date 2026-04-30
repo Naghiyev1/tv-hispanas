@@ -8,7 +8,7 @@ A simple, free live TV player for public Spanish and Spanish-speaking TV streams
 - Plays HLS / M3U8 streams in the browser
 - Uses hls.js for browsers that do not support HLS natively
 - Supports:
-  - Spain · TDTChannels
+  - Spain · TDTChannels M3U8
   - Spain · IPTV-org
   - Spanish-language · IPTV-org
 - Includes search
@@ -24,7 +24,7 @@ A simple, free live TV player for public Spanish and Spanish-speaking TV streams
 
 This app uses public/open playlist sources:
 
-- TDTChannels: https://www.tdtchannels.com/lists/
+- TDTChannels M3U8 TV playlist: https://www.tdtchannels.com/lists/tv.m3u8
 - IPTV-org: https://github.com/iptv-org/iptv
 - hls.js: https://github.com/video-dev/hls.js/
 
@@ -64,3 +64,8 @@ https://yourusername.github.io/tv-hispanas/
 Live TV is less reliable than radio. Some channels may not play because of geo-blocking, CORS restrictions, dead URLs, stream format issues, or channels changing their official URLs.
 
 The app is designed for public/free streams only. It does not include pay-TV, pirated sports streams, or protected content.
+
+
+## v1.1 note
+
+The TDTChannels source now uses the official `tv.m3u8` playlist instead of `tv.json`. This is more suitable for a browser-based IPTV player.
