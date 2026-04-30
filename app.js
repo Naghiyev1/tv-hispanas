@@ -1,8 +1,8 @@
 const SOURCES = {
   tdt: {
     label: "Spain · TDTChannels",
-    type: "tdt-json",
-    url: "https://www.tdtchannels.com/lists/tv.json"
+    type: "m3u",
+    url: "https://www.tdtchannels.com/lists/tv.m3u8"
   },
   "iptv-es": {
     label: "Spain · IPTV-org",
