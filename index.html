@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TV Hispanas</title>
+  <meta
+    name="description"
+    content="A simple free live TV player for public Spanish and Spanish-speaking channels."
+  />
+  <meta name="theme-color" content="#7c3aed" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <section class="hero-main">
+        <div>
+          <div class="eyebrow">Free live TV · public streams only</div>
+          <h1>TV Hispanas</h1>
+          <p>
+            Watch public live TV channels from Spain and the Spanish-speaking world.
+            Built as a free static web app with no login, no backend and no paid services.
+          </p>
+        </div>
+      </section>
+
+      <aside class="hero-side">
+        <div>
+          <strong>What this version does</strong>
+          <p>
+            It loads public TV playlists, plays HLS streams in the browser, saves favourites
+            and recently watched channels, and works as a lightweight PWA.
+          </p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span id="channelCount">0</span>
+            <small>channels loaded</small>
+          </div>
+          <div class="stat">
+            <span id="favoriteCount">0</span>
+            <small>favourites</small>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <section class="player-panel" aria-label="Live TV player">
+      <video id="videoPlayer" controls playsinline poster=""></video>
+      <div class="player-meta">
+        <div class="player-logo" id="playerLogo">TV</div>
+        <div class="now-playing">
+          <strong id="currentChannel">Nothing playing</strong>
+          <span id="currentMeta">Choose a channel to start watching</span>
+        </div>
+        <button id="playerFavoriteButton" class="icon-button" type="button" disabled aria-label="Toggle current channel favourite">★</button>
+        <button id="stopButton" class="stop-button" type="button" disabled>Stop</button>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="TV search controls">
+      <input id="searchInput" type="search" placeholder="Search channel, region, category..." />
+
+      <select id="sourceSelect" aria-label="Choose source">
+        <option value="tdt" selected>Spain · TDTChannels</option>
+        <option value="iptv-es">Spain · IPTV-org</option>
+        <option value="iptv-all">Spanish-language · IPTV-org</option>
+      </select>
+
+      <button id="searchButton" type="button">Search</button>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
+    </section>
+
+    <section class="filter-pills" aria-label="Quick filters">
+      <button class="pill active" type="button" data-filter="">All</button>
+      <button class="pill" type="button" data-filter="__favorites">Favorites</button>
+      <button class="pill" type="button" data-filter="__recent">Recently Watched</button>
+      <button class="pill" type="button" data-filter="news">News</button>
+      <button class="pill" type="button" data-filter="general">General</button>
+      <button class="pill" type="button" data-filter="sports">Sports</button>
+      <button class="pill" type="button" data-filter="kids">Kids</button>
+      <button class="pill" type="button" data-filter="music">Music</button>
+      <button class="pill" type="button" data-filter="regional">Regional</button>
+    </section>
+
+    <div class="status-bar">
+      <span id="statusText">Loading channels...</span>
+      <strong id="activeFilterLabel">Spain · TDTChannels</strong>
+    </div>
+
+    <main id="channelsGrid" class="channels-grid" aria-live="polite"></main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
