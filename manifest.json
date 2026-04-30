@@ -1,0 +1,19 @@
+{
+  "name": "TV Hispanas",
+  "short_name": "TV Hispanas",
+  "description": "A simple free live TV player for public Spanish and Spanish-speaking channels.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f3ef",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
