@@ -1,8 +1,8 @@
 const SOURCES = {
   tdt: {
     label: "Spain · TDTChannels",
-    type: "m3u",
-    url: "https://www.tdtchannels.com/lists/tv.m3u8"
+    type: "tdt-markdown",
+    url: "https://raw.githubusercontent.com/LaQuay/TDTChannels/master/TELEVISION.md"
   },
   "iptv-es": {
     label: "Spain · IPTV-org",
@@ -77,7 +77,9 @@ async function loadChannels() {
 
     const parsedChannels = selectedSource.type === "tdt-json"
       ? parseTdtChannels(rawData)
-      : parseM3U(rawData, selectedSource.label);
+      : selectedSource.type === "tdt-markdown"
+        ? parseTdtMarkdown(rawData)
+        : parseM3U(rawData, selectedSource.label);
 
     channels = applyFilters(parsedChannels)
       .filter(channel => channel.url)
@@ -176,6 +178,93 @@ function parseTdtChannels(data) {
   walk(data);
   return parsed;
 }
+
+
+function parseTdtMarkdown(markdown) {
+  const parsed = [];
+  const lines = markdown.split(/\r?\n/);
+
+  lines.forEach(line => {
+    const trimmed = line.trim();
+
+    if (!trimmed.startsWith("|") || !trimmed.includes("m3u8")) {
+      return;
+    }
+
+    const cells = splitMarkdownTableRow(trimmed);
+
+    if (cells.length < 3) {
+      return;
+    }
+
+    const name = stripMarkdown(cells[0]).trim();
+
+    if (!name || name.toLowerCase() === "canal") {
+      return;
+    }
+
+    const streamLinks = extractMarkdownLinks(cells[1])
+      .filter(link => link.href.includes(".m3u8"));
+
+    if (!streamLinks.length) {
+      return;
+    }
+
+    const webLink = extractMarkdownLinks(cells[2])[0]?.href || "";
+    const logoLink = extractMarkdownLinks(cells[3] || "")[0]?.href || "";
+    const epgId = stripMarkdown(cells[4] || "").trim();
+    const info = stripMarkdown(cells[5] || "").trim();
+
+    streamLinks.forEach((link, index) => {
+      parsed.push({
+        id: makeChannelId(`${name}-${index + 1}`, link.href),
+        name,
+        country: "Spain",
+        group: info || "TDTChannels",
+        category: info || "Live TV",
+        tags: `${info || ""} ${epgId || ""} TDTChannels Spain`,
+        logo: logoLink,
+        web: webLink,
+        url: link.href,
+        source: "TDTChannels"
+      });
+    });
+  });
+
+  return parsed;
+}
+
+function splitMarkdownTableRow(row) {
+  return row
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map(cell => cell.trim());
+}
+
+function extractMarkdownLinks(value) {
+  const links = [];
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
+
+  while ((match = regex.exec(value)) !== null) {
+    links.push({
+      text: match[1],
+      href: match[2]
+    });
+  }
+
+  return links;
+}
+
+function stripMarkdown(value) {
+  return String(value || "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/[#*_`]/g, "")
+    .trim();
+}
+
 
 function parseM3U(text, sourceLabel) {
   const lines = text.split(/\r?\n/);
