@@ -7,10 +7,30 @@ A simple, free live TV player for public Spanish and Spanish-speaking TV streams
 - Loads public TV playlists
 - Plays HLS / M3U8 streams in the browser
 - Uses hls.js for browsers that do not support HLS natively
-- Supports:
-  - Spain · TDTChannels M3U8
-  - Spain · IPTV-org
-  - Spanish-language · IPTV-org
+- Supports Spain via TDTChannels GitHub raw data
+- Supports IPTV-org country playlists for:
+  - Spain
+  - Mexico
+  - Argentina
+  - Colombia
+  - Chile
+  - Peru
+  - Venezuela
+  - Ecuador
+  - Bolivia
+  - Paraguay
+  - Uruguay
+  - Costa Rica
+  - Panama
+  - Dominican Republic
+  - Guatemala
+  - Honduras
+  - El Salvador
+  - Nicaragua
+  - Cuba
+  - Puerto Rico
+  - United States
+- Supports the all Spanish-language IPTV-org playlist
 - Includes search
 - Includes category filters
 - Saves favourites locally in the browser
@@ -24,8 +44,9 @@ A simple, free live TV player for public Spanish and Spanish-speaking TV streams
 
 This app uses public/open playlist sources:
 
-- TDTChannels M3U8 TV playlist: https://www.tdtchannels.com/lists/tv.m3u8
-- IPTV-org: https://github.com/iptv-org/iptv
+- TDTChannels GitHub raw file: https://raw.githubusercontent.com/LaQuay/TDTChannels/master/TELEVISION.md
+- IPTV-org country playlists: https://iptv-org.github.io/iptv/countries/
+- IPTV-org Spanish-language playlist: https://iptv-org.github.io/iptv/languages/spa.m3u
 - hls.js: https://github.com/video-dev/hls.js/
 
 ## Project structure
@@ -43,7 +64,7 @@ tv-hispanas/
 
 ## Deploy on GitHub Pages
 
-1. Create a public GitHub repository called `tv-hispanas`.
+1. Create or open your public GitHub repository called `tv-hispanas`.
 2. Upload the files to the root of the repository.
 3. Go to **Settings**.
 4. Go to **Pages**.
@@ -65,9 +86,6 @@ Live TV is less reliable than radio. Some channels may not play because of geo-b
 
 The app is designed for public/free streams only. It does not include pay-TV, pirated sports streams, or protected content.
 
+## v1.3 note
 
-
-
-## v1.2 note
-
-The TDTChannels source now uses the raw GitHub `TELEVISION.md` file instead of fetching `www.tdtchannels.com/lists/tv.m3u8` directly. This avoids browser access/CORS issues with the TDTChannels website and keeps the source aligned with the official TDTChannels repository.
+This version adds IPTV-org country playlists for Spanish-speaking countries while keeping the working TDTChannels GitHub raw source for Spain.
