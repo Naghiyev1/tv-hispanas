@@ -1,4 +1,4 @@
-const CACHE_NAME = "tv-hispanas-v1-2";
+const CACHE_NAME = "tv-hispanas-v1-3";
 const APP_SHELL = [
   "./",
   "./index.html",
