@@ -54,8 +54,8 @@ This app uses public/open playlist sources:
 ```text
 tv-hispanas/
   index.html
-  style.css
-  app.js
+  style-v1-4.css
+  app-v1-4.js
   README.md
   icon.svg
   manifest.json
@@ -64,28 +64,18 @@ tv-hispanas/
 
 ## Deploy on GitHub Pages
 
-1. Create or open your public GitHub repository called `tv-hispanas`.
-2. Upload the files to the root of the repository.
-3. Go to **Settings**.
-4. Go to **Pages**.
-5. Select:
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/root`
-6. Save.
+1. Upload all files to the root of your `tv-hispanas` repository.
+2. Commit the changes.
+3. Wait for GitHub Pages to redeploy.
+4. Hard refresh once.
 
-Your app will be available at:
+## Important v1.4 note
+
+This version uses versioned local asset filenames:
 
 ```text
-https://yourusername.github.io/tv-hispanas/
+style-v1-4.css
+app-v1-4.js
 ```
 
-## Notes
-
-Live TV is less reliable than radio. Some channels may not play because of geo-blocking, CORS restrictions, dead URLs, stream format issues, or channels changing their official URLs.
-
-The app is designed for public/free streams only. It does not include pay-TV, pirated sports streams, or protected content.
-
-## v1.3 note
-
-This version adds IPTV-org country playlists for Spanish-speaking countries while keeping the working TDTChannels GitHub raw source for Spain.
+That prevents the service worker from mixing an older cached JavaScript file with a newer HTML file.
