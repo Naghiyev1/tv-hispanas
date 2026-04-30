@@ -1,9 +1,9 @@
-const CACHE_NAME = "tv-hispanas-v1-3";
+const CACHE_NAME = "tv-hispanas-v1-4";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./style.css",
-  "./app.js",
+  "./style-v1-4.css",
+  "./app-v1-4.js",
   "./icon.svg",
   "./manifest.json"
 ];
@@ -31,11 +31,19 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const requestUrl = new URL(event.request.url);
 
+  // Never cache external playlists, video streams, or CDN scripts.
   if (requestUrl.origin !== self.location.origin) {
     return;
   }
 
+  // Network-first for local app files so updates appear quickly on GitHub Pages.
   event.respondWith(
-    caches.match(event.request).then(cachedResponse => cachedResponse || fetch(event.request))
+    fetch(event.request)
+      .then(response => {
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
