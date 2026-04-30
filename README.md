@@ -66,6 +66,8 @@ Live TV is less reliable than radio. Some channels may not play because of geo-b
 The app is designed for public/free streams only. It does not include pay-TV, pirated sports streams, or protected content.
 
 
-## v1.1 note
 
-The TDTChannels source now uses the official `tv.m3u8` playlist instead of `tv.json`. This is more suitable for a browser-based IPTV player.
+
+## v1.2 note
+
+The TDTChannels source now uses the raw GitHub `TELEVISION.md` file instead of fetching `www.tdtchannels.com/lists/tv.m3u8` directly. This avoids browser access/CORS issues with the TDTChannels website and keeps the source aligned with the official TDTChannels repository.
